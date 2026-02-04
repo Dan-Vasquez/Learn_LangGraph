@@ -36,6 +36,10 @@ Sincronizar entorno de uv
 ```
 uv sync
 ```
+Instalar paquete
+```
+uv pip install -e .
+```
 
 
 # Comandos de ejecusion entorno desarrollo
