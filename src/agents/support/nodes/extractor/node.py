@@ -3,6 +3,9 @@ from langchain.chat_models import init_chat_model
 from agents.support.nodes.extractor.prompt import SYSTEM_PROMPT
 from pydantic import BaseModel, Field
 
+from dotenv import load_dotenv
+load_dotenv()
+
 llm = init_chat_model("openai:gpt-4.1-mini", temperature=0.3)
 
 class ContactInfo(BaseModel):
@@ -21,7 +24,7 @@ def extractor_node(state: State):
     email = state.get("email", None)
     new_state: State = {}
     if not name or not phone or not email:
-        schema = lm.invoke([( "system", SYSTEM_PROMPT) +history])
+        schema = lm.invoke([("system", SYSTEM_PROMPT)] + history)
         new_state["name"] = schema.name
         new_state["phone"] = schema.phone
         new_state["email"] = schema.email
